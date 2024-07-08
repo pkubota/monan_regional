@@ -1,0 +1,24 @@
+&nhyd_model
+config_init_case = 8               !must be 8, the surface field initialization case
+config_start_time = '#LABELI#'     !time to begin processing surface data
+config_stop_time = '#LABELF#'      !time to end processing surface data
+/
+&data_sources
+config_sfc_prefix = 'SST'          ! the prefix of the intermediate data files containing SST
+                                   ! and sea-ice
+config_fg_interval = 86400         ! interval between intermediate files to use for SST and
+                                   ! sea-ice
+/
+&preproc_stages
+config_static_interp = false        !
+config_native_gwd_static = false    !
+config_vertical_grid = false        !
+config_met_interp = false           !
+config_input_sst = true             ! only the input sst and frac seaice stages only the input sst and frac seaice stages should be enabled
+config_frac_seaice = true           ! only the input sst and frac seaice stages only the input sst and frac seaice stages should be enabled
+/
+&decomposition
+!config_block_decomp_file_prefix =  'graph.info.part.' ! if running in parallel, needs to match the grid decomposition file prefix
+config_block_decomp_file_prefix = 'x1.#RESNPTS#.graph.info.part.' !if running in parallel, must match the prefix of the
+                                                                      !graph decomposition file
+/
