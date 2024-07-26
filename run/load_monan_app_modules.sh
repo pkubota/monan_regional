@@ -21,9 +21,6 @@ export PMIX_MCA_gds=hash
 export NETCDF=/mnt/beegfs/monan/libs/netcdf
 export PNETCDF=/mnt/beegfs/monan/libs/PnetCDF
 
-export NCARG_ROOT=/home/paulo.kubota/.conda/envs/ncl_stable
-export NCARG_BIN=${NCARG_ROOT}/bin
-export PATH=${NCARG_BIN}:${PATH}
 
 MPI_PARAMS="-iface ib0 -bind-to core -map-by core"
 export MKL_NUM_THREADS=1

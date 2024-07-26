@@ -92,7 +92,7 @@ source scripts/Function_InitAtmos_SST_CLM.bash
 #
 # Activity Modules
 #
-. ${DIR_HOME}/run/load_monan_app_modules.sh
+source ${DIR_HOME}/run/load_monan_app_modules.sh
 #
 # Execute Functions
 #
@@ -110,7 +110,7 @@ echo -e  "${GREEN}==>${NC} Creating Function_RecDomain.sh for...\n"
 echo -e  "${GREEN}==>${NC} Plot Domain.sh for...\n"
 
   Function_PlotDomain ${RES_KM} ${EXP_RES} ${frac} ${Domain} ${AreaRegion} ${TypeGrid}
-exit
+
 echo -e  "${GREEN}==>${NC} Creating make_static.sh for submiting init_atmosphere...\n"
 
   Function_static ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${Domain} ${AreaRegion} ${TypeGrid}
@@ -149,11 +149,11 @@ echo -e  "${GREEN}==>${NC} Submiting InitAtmos_lbc_exe.sh...\n"
 
 fi
 
-echo -e  "${GREEN}==>${NC} Submiting degribsst_exe.sh...\n"
+#PK echo -e  "${GREEN}==>${NC} Submiting degribsst_exe.sh...\n"
 
 #PK Function_Degrib_SST_GFS   ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
 
-echo -e  "${GREEN}==>${NC} Submiting InitAtmosSST_exe.sh...\n"
+#PK echo -e  "${GREEN}==>${NC} Submiting InitAtmosSST_exe.sh...\n"
 
 #PK Function_InitAtmos_SST_GFS    ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
 
