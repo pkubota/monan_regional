@@ -1,0 +1,6 @@
+Name: Nordeste
+Type: ellipse
+Point: -9.3995, -40.5025
+Semi-major-axis: 1000000    # Raio at Meters
+Semi-minor-axis: 1000000    # Raio at Meters
+Orientation-angle: 45

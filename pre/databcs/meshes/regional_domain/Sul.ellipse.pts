@@ -1,0 +1,6 @@
+Name: Sul
+Type: ellipse
+Point: -30.03306, -51.230000
+Semi-major-axis: 1000000    # Raio at Meters
+Semi-minor-axis: 1000000    # Raio at Meters
+Orientation-angle: 45

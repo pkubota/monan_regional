@@ -1,0 +1,6 @@
+Name: Norte
+Type: ellipse
+Point: -2.6320, -56.7331
+Semi-major-axis: 1000000    # Raio at Meters
+Semi-minor-axis: 1000000    # Raio at Meters
+Orientation-angle: 45

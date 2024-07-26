@@ -1,0 +1,6 @@
+Name: Sudeste 
+Type: ellipse
+Point: -21.6973, -45.2563
+Semi-major-axis: 1000000    # Raio at Meters
+Semi-minor-axis: 1000000    # Raio at Meters
+Orientation-angle: 45
