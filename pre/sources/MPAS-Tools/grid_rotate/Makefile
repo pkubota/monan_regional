@@ -8,7 +8,7 @@ FCLIBS = -L$(shell nc-config --libdir) $(shell nf-config --flibs) $(RPATH_FLAGS)
 all: grid_rotate
 
 grid_rotate: grid_rotate.f90
-	$(FC) grid_rotate.f90 -o grid_rotate $(FFLAGS) $(FCINCLUDES) $(FCLIBS)
+	$(FC) grid_rotate.f90 -o ../../../exec/grid_rotate $(FFLAGS) $(FCINCLUDES) $(FCLIBS)
 
 clean:
 	rm grid_rotate
