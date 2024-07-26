@@ -51,6 +51,8 @@ cd ${SUBMIT_HOME}/pre/databcs/meshes/${TypeGrid}
 pathin=${SUBMIT_HOME}/pre/databcs/meshes/${TypeGrid}
 pathmesh=${SUBMIT_HOME}
 
+path_ncl=${NCARG_BIN}
+
 export DIR_MESH=${pathmesh}/pre/databcs/meshes/regional_domain/
 if [ ${Domain} = "regional" ]; then
 echo "----------------------------"  
@@ -72,8 +74,9 @@ FILEDATA=${pathin}/${Domain}/${RES_KM}/${AreaRegion}.${EXP_RES}.grid.nc
 
 sed -e "s,#FILEDATA#,${FILEDATA},g;s,#startlon#,${startlon},g;s,#endlon#,${endlon},g;s,#startlat#,${startlat},g;s,#endlat#,${endlat},g" \
 	 ${DIR_MESH}/plot_region.ncl > ${pathin}/plot_region.ncl
-ncl ${pathin}/plot_region.ncl
-
+${path_ncl}/ncl ${pathin}/plot_region.ncl
+rm ${pathin}/plot_region.ncl
+mv ${pathin}/regional_mesh.png ${SUBMIT_HOME}/run
 else
 echo "----------------------------"  
 echo "        GLOBAL DOMAIN       "  
@@ -87,7 +90,9 @@ FILEDATA=${pathin}/${Domain}/${RES_KM}/${AreaRegion}.${EXP_RES}.grid.nc
 sed -e "s,#FILEDATA#,${FILEDATA},g" \
 	 ${DIR_MESH}/mpas-a_mesh.ncl > ${pathin}/mpas-a_mesh.ncl
 
-ncl ${pathin}/mpas-a_mesh.ncl
+${path_ncl}/ncl ${pathin}/mpas-a_mesh.ncl
+rm ${pathin}/mpas-a_mesh.ncl
+mv ${pathin}/global_mesh.png ${SUBMIT_HOME}/run
 
 fi
 

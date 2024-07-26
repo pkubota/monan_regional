@@ -53,6 +53,7 @@ if [ ${TypeGrid} = "variable_resolution" ]; then
 fi
 cd ${SUBMIT_HOME}/pre/databcs/meshes/${TypeGrid}/
 path_rec=${SUBMIT_HOME}"/pre/databcs/meshes/regional_domain/"
+path_bin=${SUBMIT_HOME}"/pre/sources/MPAS-Tools/MPAS-Limited-Area/"
 
 if [ ${Domain} = "regional" ]; then
 echo "----------------------------"  
@@ -62,7 +63,7 @@ echo "----------------------------"
 
 #$ create_region           points        grid
 
-create_region     ${path_rec}/${AreaRegion}.ellipse.pts     global/${RES_KM}/x${frac}.${EXP_RES}.grid.nc
+${path_bin}/create_region     ${path_rec}/${AreaRegion}.ellipse.pts     global/${RES_KM}/x${frac}.${EXP_RES}.grid.nc
 
 mkdir -p regional/${RES_KM}/
 

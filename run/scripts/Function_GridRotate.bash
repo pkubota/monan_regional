@@ -49,7 +49,7 @@ TypeGrid=${6}
 if [ ${TypeGrid} = 'variable_resolution' ]; then
 path_exe=${SUBMIT_HOME}"/pre/databcs/meshes/"${TypeGrid}
 path_rec=${SUBMIT_HOME}"/pre/databcs/meshes/regional_domain/"
-
+path_bin=${SUBMIT_HOME}"/pre/sources/MPAS-Tools/MPAS-Limited-Area/"
 path_in=${path_exe}
 path_out=${path_exe}
 input_filename=${path_exe}/global/${RES_KM}/x${frac}.${EXP_RES}.grid.nc
@@ -80,7 +80,7 @@ echo "       REGIONAL DOMAIN      "
 echo "----------------------------"  
 
 echo create_region     ${path_rec}/${AreaRegion}.ellipse.pts     global/${RES_KM}/g${frac}.${EXP_RES}.grid.nc
-create_region          ${path_rec}/${AreaRegion}.ellipse.pts     global/${RES_KM}/g${frac}.${EXP_RES}.grid.nc
+${path_bin}/create_region          ${path_rec}/${AreaRegion}.ellipse.pts     global/${RES_KM}/g${frac}.${EXP_RES}.grid.nc
 
 mkdir -p regional/${RES_KM}/
 
