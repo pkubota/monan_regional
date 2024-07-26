@@ -180,7 +180,7 @@ echo "FORECAST "${LABELI}
 cp ${TBLDIRGRIB}/Vtable.GFS ${EXPDIR}/wpsprd/Vtable
 
 cp ${SCRDIR}/link_grib.csh ${EXPDIR}/wpsprd/link_grib.csh
-
+chmod 777 ${EXPDIR}/wpsprd/link_grib.csh
 cp ${EXECPATH}/ungrib.exe ${EXPDIR}/wpsprd/ungrib.exe
 
 export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:${HOME}/local/lib64
