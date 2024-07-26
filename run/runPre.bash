@@ -92,11 +92,13 @@ source scripts/Function_InitAtmos_SST_CLM.bash
 #
 # Activity Modules
 #
-source ${DIR_HOME}/run/load_monan_app_modules.sh
 #
 # Execute Functions
 #
  VarEnvironmental       "export Environmental Variable "
+source ${DIR_HOME}/run/load_monan_app_modules.sh
+
+
  Function_SetResolution ${EXP_RES} ${TypeGrid} 'set resolution '
 
 echo -e  "${GREEN}==>${NC} Creating Function_GridRotate.sh for...\n"
