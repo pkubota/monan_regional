@@ -161,7 +161,7 @@ echo "FORECAST "${LABELI}
 
 cp ${TBLDIRGRIB}/Vtable.ERA-interim.pl ${EXPDIR}/wpsprd/Vtable
 
-cp ${SCRDIR}/link_grib.csh ${EXPDIR}/wpsprd/link_grib.csh
+cp ${TBLDIRGRIB}/link_grib.csh ${EXPDIR}/wpsprd/link_grib.csh
 chmod 777 ${EXPDIR}/wpsprd/link_grib.csh
 
 cp ${EXECPATH}/ungrib.exe ${EXPDIR}/wpsprd/ungrib.exe

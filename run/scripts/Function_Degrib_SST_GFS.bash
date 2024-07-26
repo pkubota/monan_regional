@@ -155,7 +155,7 @@ echo "FORECAST "${LABELI}
 
 cp ${TBLDIRGRIB}/Vtable.SST ${EXPDIR}/sst/Vtable
 
-cp ${SCRDIR}/link_grib.csh ${EXPDIR}/sst/link_grib.csh
+cp ${TBLDIRGRIB}/link_grib.csh ${EXPDIR}/sst/link_grib.csh
 chmod 777 ${EXPDIR}/sst/link_grib.csh
 
 cp ${EXECPATH}/ungrib.exe ${EXPDIR}/sst/ungrib.exe
