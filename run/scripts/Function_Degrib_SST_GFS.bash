@@ -153,11 +153,12 @@ cd ${EXPDIR}/sst
 
 echo "FORECAST "${LABELI}
 
-cp ${TBLDIRGRIB}/Vtable.SST ./Vtable
+cp ${TBLDIRGRIB}/Vtable.SST ${EXPDIR}/sst/Vtable
 
-cp ${SCRDIR}/link_grib.csh .
+cp ${SCRDIR}/link_grib.csh ${EXPDIR}/sst/link_grib.csh
+chmod 777 ${EXPDIR}/sst/link_grib.csh
 
-cp ${EXECPATH}/ungrib.exe .
+cp ${EXECPATH}/ungrib.exe ${EXPDIR}/sst/ungrib.exe
 
 export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:${HOME}/local/lib64
 
@@ -175,7 +176,7 @@ rm -f GRIBFILE.* namelist.wps
 sed -e "s,#LABELI#,${start_date},g;s,#LABELF#,${end_date},g;s,#PREFIX#,SST,g" \
 	${NMLDIR}/namelist.wps.SST > ./namelist.wps
 
-./link_grib.csh ./rtgssthr_grb_0.083.grib2.${LABELSST}
+${EXPDIR}/wpsprd/link_grib.csh ./rtgssthr_grb_0.083.grib2.${LABELSST}
 nfile=`ls -ltr rtgssthr*.grib2* | wc -l`
 if [ \${nfile} -ne 0 ];then
 mpirun -np 1 ./ungrib.exe
@@ -212,7 +213,7 @@ fi
    mv ${EXPDIR}/sst/ungrib.log          ${LOGDIR}/ungrib_sst.${start_date}.log
    mv Timing.degrib                 ${LOGDIR}
    mv namelist.wps degrib_ic_exe.sh ${EXPDIR}/scripts
-   rm -f link_grib.csh
+   rm -f ${EXPDIR}/wpsprd/link_grib.csh
 
    find ${EXPDIR}/sst -maxdepth 1 -type l -exec rm -f {} \;
 

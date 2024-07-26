@@ -163,11 +163,12 @@ cd ${EXPDIR}/wpsprd
 
 echo "FORECAST "${LABELI}
 
-cp ${TBLDIRGRIB}/Vtable.GFS ./Vtable
+cp ${TBLDIRGRIB}/Vtable.GFS ${EXPDIR}/wpsprd/Vtable
 
-cp ${SCRDIR}/link_grib.csh .
+cp ${TBLDIRGRIB}/link_grib.csh ${EXPDIR}/wpsprd/link_grib.csh 
+chmod 777 ${EXPDIR}/wpsprd/link_grib.csh
 
-cp ${EXECPATH}/ungrib.exe .
+cp ${EXECPATH}/ungrib.exe ${EXPDIR}/wpsprd/ungrib.exe
 
 export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:${HOME}/local/lib64
 
@@ -185,7 +186,7 @@ rm -f GRIBFILE.* namelist.wps
 sed -e "s,#LABELI#,${start_date},g;s,#PREFIX#,GFS,g" \
 	${NMLDIR}/namelist.wps.TEMPLATE.${Domain} > ./namelist.wps
 
-./link_grib.csh gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2
+${EXPDIR}/wpsprd/link_grib.csh gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2
 
 mpirun -np 1 ./ungrib.exe
 
@@ -217,7 +218,7 @@ fi
    mv ungrib.log      ${LOGDIR}/ungrib.${start_date}.log
    mv Timing.degrib   ${LOGDIR}
    mv namelist.wps    ${EXPDIR}/scripts
-   rm -f link_grib.csh
+   rm -f ${EXPDIR}/wpsprd/link_grib.csh
    cd ..
    ln -sf wpsprd/GFS\:${start_date:0:13} FILE3\:${start_date:0:13}
    find ${EXPDIR}/wpsprd -maxdepth 1 -type l -exec rm -f {} \;

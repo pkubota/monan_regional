@@ -159,11 +159,11 @@ cd ${EXPDIR}/wpsprd
 
 echo "FORECAST "${LABELI}
 
-cp ${TBLDIRGRIB}/Vtable.ERA-interim.pl ./Vtable
+cp ${TBLDIRGRIB}/Vtable.ERA-interim.pl ${EXPDIR}/wpsprd/Vtable
 
-cp ${SCRDIR}/link_grib.csh .
+cp ${SCRDIR}/link_grib.csh ${EXPDIR}/wpsprd/link_grib.csh
 
-cp ${EXECPATH}/ungrib.exe .
+cp ${EXECPATH}/ungrib.exe ${EXPDIR}/wpsprd/ungrib.exe
 
 export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:${HOME}/local/lib64
 
@@ -181,7 +181,7 @@ sed -e "s,#LABELI#,1979-01-01_00:00:00,g;s,#PREFIX#,LSM,g" \
 	${NMLDIR}/namelist.wps.TEMPLATE.${Domain} > ./namelist.wps
 
 
-./link_grib.csh \
+${EXPDIR}/wpsprd/link_grib.csh \
 	e5.oper.invariant.128_172_lsm.ll025sc.1979010100_1979010100.grb
 
 mpirun -np 1 ./ungrib.exe
@@ -196,7 +196,7 @@ sed -e "s,#LABELI#,1979-01-01_00:00:00,g;s,#PREFIX#,GEO,g" \
 	${NMLDIR}/namelist.wps.TEMPLATE.${Domain} > ./namelist.wps
 
 rm -f GRIBFILE.AAA
-./link_grib.csh \
+${EXPDIR}/wpsprd/link_grib.csh \
 	e5.oper.invariant.128_129_z.ll025sc.1979010100_1979010100.grb
 
 mpirun -np 1 ./ungrib.exe
@@ -211,7 +211,7 @@ sed -e "s,#LABELI#,${start_date},g;s,#PREFIX#,FILE,g" \
 	${NMLDIR}/namelist.wps.TEMPLATE.${Domain} > ./namelist.wps
 
 
-./link_grib.csh e5.oper.an.*.grb
+${EXPDIR}/wpsprd/link_grib.csh e5.oper.an.*.grb
 
 mpirun -np 1 ./ungrib.exe
 
@@ -246,7 +246,7 @@ fi
    mv ungrib.log ${LOGDIR}/ungrib.${start_date}.log
    mv Timing.degrib ${LOGDIR}
    mv namelist.wps degrib_ic_exe.sh ${EXPDIR}/scripts
-   rm -f link_grib.csh
+   rm -f ${EXPDIR}/wpsprd/link_grib.csh
    cd ..
    ln -sf wpsprd/FILE3\:${start_date:0:13} .
    find ${EXPDIR}/wpsprd -maxdepth 1 -type l -exec rm -f {} \;

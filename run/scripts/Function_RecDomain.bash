@@ -62,7 +62,7 @@ echo "----------------------------"
 
 
 #$ create_region           points        grid
-chmod 777 ${path_bin}/create_region
+chmod 777 ${path_bin}/create_region 
 ${path_bin}/create_region     ${path_rec}/${AreaRegion}.ellipse.pts     global/${RES_KM}/x${frac}.${EXP_RES}.grid.nc
 
 mkdir -p regional/${RES_KM}/

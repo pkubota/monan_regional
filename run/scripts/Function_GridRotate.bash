@@ -78,10 +78,9 @@ if [ ${Domain} = "regional" ]; then
 echo "----------------------------"  
 echo "       REGIONAL DOMAIN      "  
 echo "----------------------------"  
+chmod 777 ${path_bin}/create_region 
 
 echo create_region     ${path_rec}/${AreaRegion}.ellipse.pts     global/${RES_KM}/g${frac}.${EXP_RES}.grid.nc
-chmod 777 ${path_bin}/create_region
-
 ${path_bin}/create_region          ${path_rec}/${AreaRegion}.ellipse.pts     global/${RES_KM}/g${frac}.${EXP_RES}.grid.nc
 
 mkdir -p regional/${RES_KM}/
