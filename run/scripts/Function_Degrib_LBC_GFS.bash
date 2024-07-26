@@ -63,7 +63,7 @@ fi
 HSTMAQ=$(hostname)
 BASEDIR=${SUBMIT_HOME}
 RUNDIR=${BASEDIR}/${LABELI}/pre/runs
-DATADIR=${BASEDIR}/pre/datain/data
+DATADIR=${BASEDIR}/pre/datain
 TBLDIRGRIB=${SUBMIT_HOME}/pre/Variable_Tables
 NMLDIR=${BASEDIR}/pre/namelist
 EXPDIR=${RUNDIR}/${EXP}
