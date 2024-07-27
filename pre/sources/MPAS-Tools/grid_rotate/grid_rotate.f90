@@ -14,8 +14,8 @@ program grid_rotate
   
   integer, parameter :: RKIND = 8
   real(kind=RKIND) :: pii, omega
-  character(100) :: filename
-  character(100) :: newFilename
+  character(600) :: filename
+  character(600) :: newFilename
 
 
   ! filename and newFilename are provided as command-line argument arguments 
