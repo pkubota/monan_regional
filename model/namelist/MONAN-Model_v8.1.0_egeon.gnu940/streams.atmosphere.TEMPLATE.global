@@ -21,11 +21,10 @@
 <stream name="diagnostics"
         type="output"
         filename_template="diag.$Y-$M-$D_$h.$m.$s.nc"
-        output_interval="1:00:00" >
+        output_interval="24:00:00" >
 
 	<file name="stream_list.atmosphere.diagnostics"/>
 </stream>
-
 
 <stream name="surface"
         type="input"

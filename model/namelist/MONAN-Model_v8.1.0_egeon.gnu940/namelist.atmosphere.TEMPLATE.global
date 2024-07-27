@@ -42,14 +42,13 @@
                                                !Positive real values (default: 0.0)
     config_horiz_mixing = '2d_smagorinsky'     !Formulation of horizontal mixing
                                                ! '2d_fixed' or '2d_smagorinsky' (default: 2d_smagorinsky)
-    config_len_disp = #LEN_DISP#               ![m] Horizontal length scale, used by the Smagorinsky formulation
+    config_len_disp =  #LEN_DISP#              ![m] Horizontal length scale, used by the Smagorinsky formulation
                                                ! of horizontal diffusion and by 3-d divergence damping 
                                                !(hidden by default)the smallest cell-to-cell distance in the mesh,
                                                ! used for computing a dissipation length scale
                                                !Positive real values. A zero value implies that the length scale 
                                                !is prescribed by the nominalMinDc value in the input file. 
                                                !(default: 0.0)
-                                               !config_len_disp = 3000.0 for 3km resoltion
     config_visc4_2dsmag = 0.05                 !Scaling coefficient of dx^3 to obtain nabla4 diffusion coefficient 
                                                !Non-negative real values (default: 0.05)
     config_del4u_div_factor =  10              !Scaling factor for the divergent component of nabla^4 u calculation 
@@ -93,7 +92,7 @@
 !					       !config_apvm_upwinding  0.0 for 3km resolution
 /
 &limited_area
-config_apply_lbcs = .true.   !must be set to true only if running a regional simulation,
+config_apply_lbcs = false    !must be set to true only if running a regional simulation,
                              !as in Section 8.2
                              !Whether to apply lateral boundary conditions
                              !true or false; this option must be set to 
@@ -128,8 +127,8 @@ config_apply_lbcs = .true.   !must be set to true only if running a regional sim
                                               ! Positive integer values (default: 6)
 /
 &io
-    config_pio_num_iotasks = 0            !config_pio_num_iotasks = 10
-    config_pio_stride = 1                 !config_pio_stride = 24
+    config_pio_num_iotasks = 0
+    config_pio_stride = 1
 /
 &decomposition
     config_block_decomp_file_prefix = '#x1#.#RESNPTS#.graph.info.part.' !if running in parallel, must match the prefix of the
@@ -148,22 +147,22 @@ config_apply_lbcs = .true.   !must be set to true only if running a regional sim
     config_IAU_window_length_s = 21600.
 /
 &physics
-    config_sst_update = false                     ! if updating sea-ice and SST with an surface.nc file,
+    config_sst_update = true                     ! if updating sea-ice and SST with an surface.nc file,
                                                   ! set to true, and edit the 'surface' stream in the
                                                   ! streams.atmosphere file accordingly
     config_sstdiurn_update = false
     config_deepsoiltemp_update = false
-    config_radtlw_interval = '00:10:00'           !time interval between calls to parameterization of long-wave radiation 'DD_HH:MM:SS' or 'none' (default: 00_00:30:00)
-    config_radtsw_interval = '00:10:00'           !time interval between calls to parameterization of short-wave radiation 'DD_HH:MM:SS' or 'none' (default: 00_00:30:00)
+    config_radtlw_interval = '01:00:00'           !time interval between calls to parameterization of long-wave radiation 'DD_HH:MM:SS' or 'none' (default: 00_00:30:00)
+    config_radtsw_interval = '01:00:00'           !time interval between calls to parameterization of short-wave radiation 'DD_HH:MM:SS' or 'none' (default: 00_00:30:00)
     config_pbl_interval = 'none'                  !time interval between calls to parameterization of pbl layer (hidden by default) 'DD_HH:MM:SS' or 'none' (default: none)
-    config_conv_interval = 'none'          !time interval between calls to parameterization of convection (hidden by default) 'DD_HH:MM:SS' or 'none' (default: none)
+    config_conv_interval = 'none'                 !time interval between calls to parameterization of convection (hidden by default) 'DD_HH:MM:SS' or 'none' (default: none)
     config_camrad_abs_update = '06:00:00'         !time interval between updates of absorption/emission coeffs in CAM rad (hidden by default) 'DD_HH:MM:SS' or 'none' (default: 06:00:00)
     config_greeness_update = '24:00:00'           !time interval between updates of greeness fraction (hidden by default) 'DD_HH:MM:SS' or 'none' (default: 24:00:00)
     config_bucket_update = '00:05:00'             !time interval between updates of accumulated rain and radiation diagnostics 'DD_HH:MM:SS' or 'none' (default: none)
-    config_physics_suite = 'convection_permitting'  !Choice of physics suite 'mesoscale_reference','convection_permitting','none' (default:mesoscale_reference)
-    config_microp_scheme = 'mp_thompson'                !configuration for cloud microphysics schemes (hidden by default) 
+    config_physics_suite = 'mesoscale_reference'  !Choice of physics suite 'mesoscale_reference','convection_permitting','none' (default:mesoscale_reference)
+    config_microp_scheme = 'suite'                !configuration for cloud microphysics schemes (hidden by default) 
                                                   !'suite','mp_wsm6','mp_thompson','mp_kessler','off' (default: suite)
-    config_convection_scheme = 'off'            !configuration for convection schemes (hidden by default) 
+    config_convection_scheme = 'suite'            !configuration for convection schemes (hidden by default) 
                                                   !'suite','cu_kain_fritsch','cu_tiedtke','cu_ntiedtke','cu_grell_freitas','off' (default: suite)
     config_radt_cld_scheme = 'suite'              !configuration for calculation of horizontal cloud fraction (hidden by default)
                                                   !'suite','cld_fraction','cld_incidence' (default: suite)
