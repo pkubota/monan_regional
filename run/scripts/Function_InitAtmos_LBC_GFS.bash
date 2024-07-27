@@ -145,7 +145,7 @@ ulimit -c unlimited
 ulimit -v unlimited
 ulimit -s unlimited
 
-cd ${DIR_HOME}run
+cd ${DIR_HOME}/run
 . ${DIR_HOME}/run/load_monan_app_modules.sh
 
 cd ${EXPDIR}

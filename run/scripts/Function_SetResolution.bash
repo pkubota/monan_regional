@@ -10,6 +10,7 @@ if [ ${TypeGrid} = 'variable_resolution' ]; then
 case "`echo ${EXP_RES} | awk '{print $1/1 }'`" in
   835586)RES_KM='060_003km';frac=20;len_disp=3000  ;; 
   535554)RES_KM='060_015km';frac=4 ;len_disp=15000 ;; 
+  163842)RES_KM='092_025km';frac=4 ;len_disp=25000 ;; 
 esac
 
 else

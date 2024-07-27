@@ -12,8 +12,9 @@ if [ ${TypeGrid} = 'variable_resolution' ]; then
 #  os tamanhos dos intervalos de tempo geralmente recebem o valor de 6x do espaçamento da grade em km.
 
 case "`echo ${EXP_RES} | awk '{print $1/1 }'`" in
-  835586)dt_step=12 ;cores_model=512 ;nodes_model=4 ;cores=256 ;cores_stat=32   ;nodes=2 ;;            #'060_003km' ;; 
-  535554)dt_step=90 ;cores_model=256 ;nodes_model=2 ;cores=32  ;cores_stat=32   ;nodes=1 ;;            # 060_015km
+  835586)dt_step=12  ;cores_model=512 ;nodes_model=4 ;cores=256 ;cores_stat=32   ;nodes=2 ;;            #'060_003km' ;; 
+  535554)dt_step=90  ;cores_model=256 ;nodes_model=2 ;cores=32  ;cores_stat=32   ;nodes=1 ;;            # 060_015km
+  163842)dt_step=150 ;cores_model=128 ;nodes_model=1 ;cores=32  ;cores_stat=32   ;nodes=1 ;;            # 060_015km
 esac
 #
 # Configuracoes
@@ -28,7 +29,7 @@ else
 case "`echo ${EXP_RES} | awk '{print $1/1 }'`" in
 65536002)dt_step=12  ;cores_model=514 ;nodes_model=4 ;cores=256 ;cores_stat=32  ;nodes=2 ;;
  2621442)dt_step=90  ;cores_model=256 ;nodes_model=2 ;cores=128 ;cores_stat=32  ;nodes=1 ;; 
- 1024002)dt_step=180 ;cores_model=256 ;nodes_model=2 ;cores=32  ;cores_stat=32  ;nodes=1 ;;	
+ 1024002)dt_step=150 ;cores_model=128 ;nodes_model=1 ;cores=32  ;cores_stat=32  ;nodes=1 ;;	
   655362)dt_step=240 ;cores_model=48  ;nodes_model=1 ;cores=48  ;cores_stat=32  ;nodes=1 ;; 
   256002)dt_step=300 ;cores_model=20  ;nodes_model=1 ;cores=20  ;cores_stat=32  ;nodes=1 ;; 
   163842)dt_step=360 ;cores_model=16  ;nodes_model=1 ;cores=16  ;cores_stat=32  ;nodes=1 ;; 

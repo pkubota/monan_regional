@@ -63,7 +63,7 @@ fi
 HSTMAQ=$(hostname)
 BASEDIR=${SUBMIT_HOME}
 RUNDIR=${BASEDIR}/${LABELI}/pre/runs
-DATADIR=${BASEDIR}/pre/datain
+DATADIR=${BASEDIR}/pre/datain/
 TBLDIRGRIB=${SUBMIT_HOME}/pre/Variable_Tables
 NMLDIR=${BASEDIR}/pre/namelist
 EXPDIR=${RUNDIR}/${EXP}
@@ -181,6 +181,7 @@ cp ${TBLDIRGRIB}/Vtable.GFS ${EXPDIR}/wpsprd/Vtable
 
 cp ${TBLDIRGRIB}/link_grib.csh ${EXPDIR}/wpsprd/link_grib.csh
 chmod 777 ${EXPDIR}/wpsprd/link_grib.csh
+
 cp ${EXECPATH}/ungrib.exe ${EXPDIR}/wpsprd/ungrib.exe
 
 export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:${HOME}/local/lib64
