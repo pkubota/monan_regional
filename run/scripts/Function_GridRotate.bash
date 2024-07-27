@@ -53,7 +53,7 @@ path_bin=${SUBMIT_HOME}"/pre/sources/MPAS-Tools/MPAS-Limited-Area/"
 path_in=${path_exe}
 path_out=${path_exe}
 input_filename=${path_exe}/global/${RES_KM}/x${frac}.${EXP_RES}.grid.nc
-output_filename=./global/${RES_KM}/g${frac}.${EXP_RES}.grid.nc
+output_filename=${path_exe}/global/${RES_KM}/g${frac}.${EXP_RES}.grid.nc
 
 cd ${path_exe}
 clon=`cat ${path_rec}/${AreaRegion}.ellipse.pts | grep Point: | awk '{printf "%.5f\n", $3/1}'`
