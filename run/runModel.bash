@@ -17,15 +17,9 @@
 #
 # !CALLING SEQUENCE:
 #     
-#        ./runModel.bash EXP_NAME RES LABELI
 #
-# For benchmark:
-#        ./runModel.bash CFSR ${EXP_RES} 2010102300
+# ./runModel.bash  ${EXP_NAME} ${EXP_RES}   ${LABELI}  ${LABELF}  ${Domain}  ${AreaRegion}  ${TypeGrid}
 #
-# For ERA5 datasets
-#
-#        ./runModel.bash  GFS 535554   2024042700  2024050100  regional  PortoAlegre  variable_resolution
-
 #
 #           o EXP_NAME   : Forcing: ERA5, CFSR, GFS, etc.
 #           o EXP_RES    : mesh npts : 535554 etc
@@ -34,6 +28,17 @@
 #           o Domain     : Domain: global or regional
 #           o AreaRegion : PortoAlegre, Belem, global
 #           o TypeGrid   : quasi_uniform or variable_resolution
+#
+#
+# For benchmark:
+#
+#
+# ./runModel.bash GFS      2621442   2024042700  2024050100  regional  PortoAlegre  quasi_uniform
+# ./runModel.bash GFS      1024002   2024042700  2024050100  regional  PortoAlegre  quasi_uniform
+#
+#
+# ./runModel.bash GFS       535554   2024042700  2024050100  regional  PortoAlegre  variable_resolution
+# ./runModel.bash GFS       163842   2024042700  2024050100  regional  PortoAlegre  variable_resolution
 #
 # !REVISION HISTORY:
 # 30 sep 2022 - JPRF

@@ -15,8 +15,6 @@
 #     
 #   ./runPost.bash  ${EXP_NAME} ${EXP_RES}   ${LABELI}  ${LABELF}  ${Domain}  ${AreaRegion}  ${TypeGrid}
 #
-# For benchmark:
-#   ./runPost.bash GFS 535554 2024042700  2024050100  regional  PortoAlegre  variable_resolution
 #
 # For GFS datasets
 #
@@ -30,7 +28,19 @@
 #           o AreaRegion : PortoAlegre, Belem, global
 #           o TypeGrid   : quasi_uniform or variable_resolution
 #
+#
+# For benchmark:
+#
+#
+# ./runPost.bash GFS      2621442   2024042700  2024050100  regional  PortoAlegre  quasi_uniform
+# ./runPost.bash GFS      1024002   2024042700  2024050100  regional  PortoAlegre  quasi_uniform
+#
+#
+# ./runPost.bash GFS       535554   2024042700  2024050100  regional  PortoAlegre  variable_resolution
+# ./runPost.bash GFS       163842   2024042700  2024050100  regional  PortoAlegre  variable_resolution
+#
 # !REVISION HISTORY:
+#
 # 30 sep 2022 - JPRF
 # 12 oct 2022 - GAM Group - MONAN on EGEON DELL cluster
 # 23 oct 2022 - GAM Group - MONAN benchmark on EGEON

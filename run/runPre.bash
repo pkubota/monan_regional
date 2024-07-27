@@ -29,9 +29,13 @@
 #
 #
 # For benchmark:
-#        ./runPre.bash CFSR 1024002 2010102300 24
+#
 #./runPre.bash GFS      2621442   2024042700  2024050100  regional  PortoAlegre  quasi_uniform
+#./runPre.bash GFS      1024002   2024042700  2024050100  regional  PortoAlegre  quasi_uniform
+#
+#
 #./runPre.bash GFS       535554   2024042700  2024050100  regional  PortoAlegre  variable_resolution
+#./runPre.bash GFS       163842   2024042700  2024050100  regional  PortoAlegre  variable_resolution
 #
 #
 # !REVISION HISTORY:
@@ -98,7 +102,6 @@ source scripts/Function_InitAtmos_SST_CLM.bash
  VarEnvironmental       "export Environmental Variable "
 source ${DIR_HOME}/run/load_monan_app_modules.sh
 
-
  Function_SetResolution ${EXP_RES} ${TypeGrid} 'set resolution '
 
 echo -e  "${GREEN}==>${NC} Creating Function_GridRotate.sh for...\n"
@@ -129,7 +132,7 @@ echo -e  "${GREEN}==>${NC} Submiting InitAtmos_ic_exe.sh...\n"
 
 echo -e  "${GREEN}==>${NC} Submiting CLM InitAtmosSST_exe.sh...\n"
 
- Function_InitAtmos_SST_CLM    ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
+# Function_InitAtmos_SST_CLM    ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
 
 else
 
