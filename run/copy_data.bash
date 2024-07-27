@@ -83,9 +83,20 @@ copy_mesh_exec() {
   cp -urfp ${path_in}/* ${path_out}/
 }
 
+# Define a function with local variables
+
+copy_mesh_tables() {
+  local path_in=${1}/pre/tables/
+  local path_out=${2}/pre/tables/
+
+  echo "cp -urfp: ${path_in} ${path_in}"
+  
+  cp -urfp ${path_in}/* ${path_out}/
+}
 copy_mesh_quasi_uniform       ${path_prefix_in}  ${path_prefix_out}
 copy_mesh_variable_resolution ${path_prefix_in}  ${path_prefix_out}
 copy_mesh_WPS_GEOG            ${path_prefix_in}  ${path_prefix_out}
 copy_mesh_datain_gfs          ${path_prefix_in}  ${path_prefix_out}
 copy_mesh_datain_era5         ${path_prefix_in}  ${path_prefix_out}
 copy_mesh_exec                ${path_prefix_in}  ${path_prefix_out}
+copy_mesh_tables              ${path_prefix_in}  ${path_prefix_out}
