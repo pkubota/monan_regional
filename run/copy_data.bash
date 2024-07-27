@@ -11,6 +11,14 @@ copy_mesh_quasi_uniform() {
   echo "cp -urfp: ${path_in} ${path_in}"
   
   cp -urfp ${path_in}/* ${path_out}/
+
+  local path_in=${1}/pre/databcs/meshes/quasi_uniform/global/024_km
+  local path_out=${2}/pre/databcs/meshes/quasi_uniform/global/024_km
+
+  echo "cp -urfp: ${path_in} ${path_in}"
+  
+  cp -urfp ${path_in}/* ${path_out}/
+
 }
 
 # Define a function with local variables
@@ -22,6 +30,14 @@ copy_mesh_variable_resolution() {
   echo "cp -urfp: ${path_in} ${path_in}"
   
   cp -urfp ${path_in}/* ${path_out}/
+
+  local path_in=${1}/pre/databcs/meshes/variable_resolution/global/092_025km
+  local path_out=${2}/pre/databcs/meshes/variable_resolution/global/092_025km
+
+  echo "cp -urfp: ${path_in} ${path_in}"
+  
+  cp -urfp ${path_in}/* ${path_out}/
+
 }
 
 # Define a function with local variables
