@@ -153,8 +153,8 @@ config_apply_lbcs = .true.   !must be set to true only if running a regional sim
                                                   ! streams.atmosphere file accordingly
     config_sstdiurn_update = false
     config_deepsoiltemp_update = false
-    config_radtlw_interval = '00:10:00'           !time interval between calls to parameterization of long-wave radiation 'DD_HH:MM:SS' or 'none' (default: 00_00:30:00)
-    config_radtsw_interval = '00:10:00'           !time interval between calls to parameterization of short-wave radiation 'DD_HH:MM:SS' or 'none' (default: 00_00:30:00)
+    config_radtlw_interval = '00:30:00'           !time interval between calls to parameterization of long-wave radiation 'DD_HH:MM:SS' or 'none' (default: 00_00:30:00)
+    config_radtsw_interval = '00:30:00'           !time interval between calls to parameterization of short-wave radiation 'DD_HH:MM:SS' or 'none' (default: 00_00:30:00)
     config_pbl_interval = 'none'                  !time interval between calls to parameterization of pbl layer (hidden by default) 'DD_HH:MM:SS' or 'none' (default: none)
     config_conv_interval = 'none'          !time interval between calls to parameterization of convection (hidden by default) 'DD_HH:MM:SS' or 'none' (default: none)
     config_camrad_abs_update = '06:00:00'         !time interval between updates of absorption/emission coeffs in CAM rad (hidden by default) 'DD_HH:MM:SS' or 'none' (default: 06:00:00)
