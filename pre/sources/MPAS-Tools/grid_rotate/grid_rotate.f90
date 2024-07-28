@@ -82,7 +82,7 @@ contains
       real (kind=RKIND) :: bx, by, bz
       real (kind=RKIND) :: cx, cy, cz
 
-      character(220) :: copyCmd
+      character(1220) :: copyCmd
       integer :: copyStat
 
       call read_namelist(original_latitude_degrees, original_longitude_degrees, &
