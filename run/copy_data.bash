@@ -48,7 +48,9 @@ copy_mesh_WPS_GEOG() {
 
   echo "cp -urfp: ${path_in} ${path_in}"
   
-  cp -urfp ${path_in}/* ${path_out}/
+  mkdir -p ${path_out}/
+  cd ${path_out}/
+  ln -s ${path_in}/* .
 }
 
 
