@@ -81,7 +81,7 @@ echo "----------------------------"
 echo "       REGIONAL DOMAIN      "  
 echo "----------------------------"  
 
-ncdump -v longitude mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
+ncdump -v longitude ${pathin}/mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
 aa=`cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}' | bc -l`
 nn=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -1" | bc -l`
 bb=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -2" | bc -l`
@@ -92,7 +92,7 @@ blanck=" "
 sed 's/,/ /g;s/longitude/ /g;s/=/ /g' ${pathin}/file.tmp2 > ${pathin}/longitude.tmp
 
 
-ncdump -v latitude mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
+ncdump -v latitude ${pathin}/mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
 aa=`cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}' | bc -l`
 nn=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -1" | bc -l`
 bb=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -2" | bc -l`
@@ -123,7 +123,7 @@ else
 echo "----------------------------"  
 echo "        GLOBAL DOMAIN       "  
 echo "----------------------------"  
-ncdump -v longitude mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
+ncdump -v longitude ${pathin}/mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
 aa=`cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}' | bc -l`
 nn=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -1" | bc -l`
 bb=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -2" | bc -l`
@@ -134,7 +134,7 @@ blanck=" "
 sed 's/,/ /g;s/longitude/ /g;s/=/ /g' ${pathin}/file.tmp2 > ${pathin}/longitude.tmp
 
 
-ncdump -v latitude mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
+ncdump -v latitude ${pathin}/mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
 aa=`cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}' | bc -l`
 nn=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -1" | bc -l`
 bb=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -2" | bc -l`
