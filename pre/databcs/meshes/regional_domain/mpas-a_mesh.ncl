@@ -5,7 +5,7 @@ begin
 
   r2d = 57.2957795             ; radians to degrees
 
-  wks = gsn_open_wks("png","global_mesh")
+  wks = gsn_open_wks("pdf","global_mesh")
 
   colors = (/"white","black","lightskyblue1","lightskyblue1","bisque"/)
 ;  colors = (/"white","black","white","white","grey90"/)
