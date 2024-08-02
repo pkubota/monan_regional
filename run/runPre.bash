@@ -83,7 +83,7 @@ source scripts/Function_GridRotate.bash
 source scripts/Function_SetResolution.bash
 source scripts/Function_RecDomain.bash
 source scripts/Function_PlotDomain.bash
-source scripts/Function_Static.sh
+source scripts/Function_Static.bash
 source scripts/Function_Degrib_IC_ERA5.bash
 source scripts/Function_InitAtmos_IC_ERA5.bash
 source scripts/Function_Degrib_IC_GFS.bash
