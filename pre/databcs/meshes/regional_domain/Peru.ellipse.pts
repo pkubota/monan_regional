@@ -1,0 +1,6 @@
+Name: Peru 
+Type: ellipse
+Point: -12.0431800, -77.0282400
+Semi-major-axis: 1000000    # Raio at Meters
+Semi-minor-axis: 1000000    # Raio at Meters
+Orientation-angle: 45
