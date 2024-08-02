@@ -15,8 +15,8 @@ function VarEnvironmental() {
 
     export NCAR_Tools=${SUBMIT_HOME}/pre/sources/MPAS-Tools
     export NCAR_MPAS=${NCAR_Tools}/MPAS-Limited-Area
-
-
+    export version_pos=convert_mpas_v0.1.0_egeon.gnu940
+    export version_model=MONAN-Model_v1.0.0_egeon.gnu940
     export GREEN='\033[1;32m'  # Green
     export RED='\033[1;31m'    # Red
     export NC='\033[0m'        # No Color

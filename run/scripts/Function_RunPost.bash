@@ -131,12 +131,12 @@ rm -f ${LOG_FILE}
 # copy convert_mpas from MONAN/exec to testcase
 cd ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd
 rm -f ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/convert_mpas >> ${LOG_FILE}
-cp ${DIR_HOME}/pos/exec/convert_mpas_v0.1.0_egeon.gnu940/exec/convert_mpas ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/ >> ${LOG_FILE}
+cp ${DIR_HOME}/pos/exec/${version_pos}/exec/convert_mpas ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/ >> ${LOG_FILE}
 
 cp -u ${SUBMIT_HOME}/${LABELI}/model/runs/${EXP_NAME}/${AreaRegion}.${EXP_RES}.init.nc        ${SUBMIT_HOME}/${LABELI}/model/runs/${EXP_NAME}/monanprd/ >> ${LOG_FILE}
 # copy from repository to testcase and runs /ngrid2latlon.sh
-cp ${SUBMIT_HOME}/pos/namelist/convert_mpas.nml ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/convert_mpas.nml   >> ${LOG_FILE}
-cp ${SUBMIT_HOME}/pos/namelist/ctl_descriptor.bash      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/ctl_descriptor.bash >> ${LOG_FILE}
+cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/convert_mpas.nml ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/convert_mpas.nml   >> ${LOG_FILE}
+cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/ctl_descriptor.bash      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/ctl_descriptor.bash >> ${LOG_FILE}
 
 cd ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/ 
 #
@@ -176,13 +176,13 @@ dirmodel=\`dirname \${files}\`
 filename=\`basename \${files}\`
 if [ \${filename:0:4} = "diag" ]; then
 labelF=\`echo \${filename} | awk '{print substr(\$1,6,22)}'\`
-cp ${SUBMIT_HOME}/pos/namelist/include_fields.diag      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/include_fields   >> ${LOG_FILE}
-cp ${SUBMIT_HOME}/pos/namelist/exclude_fields.diag      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/exclude_fields   >> ${LOG_FILE}
+cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/include_fields.diag      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/include_fields   >> ${LOG_FILE}
+cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/exclude_fields.diag      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/exclude_fields   >> ${LOG_FILE}
 
 else
 labelF=\`echo \${filename} | awk '{print substr(\$1,9,22)}'\`
-cp ${SUBMIT_HOME}/pos/namelist/include_fields.history      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/include_fields   >> ${LOG_FILE}
-cp ${SUBMIT_HOME}/pos/namelist/exclude_fields.history      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/exclude_fields   >> ${LOG_FILE}
+cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/include_fields.history      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/include_fields   >> ${LOG_FILE}
+cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/exclude_fields.history      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/exclude_fields   >> ${LOG_FILE}
 fi
 postname='mpas.'\${labelF}
 rm latlon.nc
