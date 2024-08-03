@@ -76,7 +76,13 @@ OPERDIR=/oper/dados/ioper/tempo/${EXP}
 BNDDIR=$OPERDIR/0p25/brutos/${LABELI:0:4}/${LABELI:4:2}/${LABELI:6:2}/${LABELI:8:2}
 
 echo $BNDDIR
-
+if [ ${Domain} = "global" ]; then
+    echo "----------------------------"  
+    echo "       /global DOMAIN      "  
+    echo "----------------------------"  
+    echo "nothing to do here"
+    return 66
+fi
 if [ ! -d ${BNDDIR} ]; then
    echo "Condicao de contorno inexistente !"
    echo "Verifique a data da rodada."

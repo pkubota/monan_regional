@@ -92,7 +92,7 @@ sed -e "s,#FILEDATA#,${FILEDATA},g" \
 
 ${path_ncl}/ncl ${pathin}/mpas-a_mesh.ncl
 rm ${pathin}/mpas-a_mesh.ncl
-mv ${pathin}/global_mesh.png ${SUBMIT_HOME}/run
+mv ${pathin}/global_mesh.pdf ${SUBMIT_HOME}/run
 
 fi
 

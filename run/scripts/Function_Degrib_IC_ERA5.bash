@@ -228,7 +228,7 @@ mpirun -np 1 ./ungrib.exe
 echo ${start_date:0:13}
 
 cat FILE\:${start_date:0:13} LSM\:1979-01-01_00 > FILE2:${start_date:0:13}
-cat FILE2\:${start_date:0:13} GEO\:1979-01-01_00 > FILE3:${start_date:0:13}
+cat FILE2\:${start_date:0:13} GEO\:1979-01-01_00 > ERA5:${start_date:0:13}
 
 else
 #
