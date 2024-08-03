@@ -112,6 +112,9 @@ nlat=360 #`echo ${startlat}  ${endlat} ${len_disp}| awk '{printf "%d\n", sqrt(((
 nlon=721 #`echo ${startlon}  ${endlon} ${len_disp}| awk '{printf "%d\n", sqrt(((($2-$1+1)*110000)/$3)^2) } '`    #  867
 fi
 
+mkdir -p ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/logs
+mkdir -p ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/monanprd
+
 cat <<EOF2>${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd//target_domain
 nlat = ${nlat}
 nlon = ${nlon}
@@ -122,8 +125,6 @@ endlon   = ${endlon}
 EOF2
 
 echo -e  "\n${GREEN}==>${NC} Executing post processing...\n"
-mkdir -p ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/logs
-mkdir -p ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/monanprd
 LOGDIR=${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/logs
 LOG_FILE=${LOGDIR}/pos.out
 rm -f ${LOG_FILE}
@@ -139,6 +140,7 @@ cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/convert_mpas.nml ${SUBMIT_HOME}/${
 cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/ctl_descriptor.bash      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/ctl_descriptor.bash >> ${LOG_FILE}
 
 cd ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/ 
+
 #
 #
 # scripts

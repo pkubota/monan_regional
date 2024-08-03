@@ -1,5 +1,5 @@
 #!/bin/bash -x
-function Function_Degrib_IC_GFS(){
+function Function_Degrib_LBC_ERA5(){
 #-----------------------------------------------------------------------------#
 #BOP
 #
@@ -47,7 +47,7 @@ fi
 #
    RES_KM=${1}
    EXP=${2}
-   RES=${3}
+   EXP_RES=${3}
    LABELI=${4}
    LABELF=${5}
    Domain=${6}
@@ -74,7 +74,7 @@ USERDATA=`echo ${EXP} | tr '[:upper:]' '[:lower:]'`
 
 OPERDIR=/oper/dados/ioper/tempo/${EXP}
 BNDDIR=$OPERDIR/0p25/brutos/${LABELI:0:4}/${LABELI:4:2}/${LABELI:6:2}/${LABELI:8:2}
-
+BNDDIR=${BASEDIR}/pre//datain/${Domain}/${USERDATA}/${LABELI}
 echo $BNDDIR
 
 if [ ! -d ${BNDDIR} ]; then
@@ -83,6 +83,11 @@ if [ ! -d ${BNDDIR} ]; then
    echo "$0 ${LABELI}"
    exit 1                     # close for running only the model
 fi
+#
+# selected ncores to submission job
+#
+Function_SetClusterConfig ${EXP_RES} ${TypeGrid} 'set Function_SetClusterConfig '
+#
 #
 # Criando diretorio dados Estaticos
 #
@@ -104,44 +109,53 @@ if [  -e ${EXPDIR} ]; then
    mkdir -p ${EXPDIR}/wpsprd
    mkdir -p ${EXPDIR}/scripts
 fi
+#
+#
+#ln -sf ${BASEDIR}/${LABELI}/pre/runs/${EXP}/static/*.nc .
+#
+cd ${EXPDIR}/wpsprd
+path_reg=${DATADIR}/${Domain}/${USERDATA}/${LABELI}
 
-if [ ${Domain} = "regional" ]; then
-   echo "----------------------------"  
-   echo "       REGIONAL DOMAIN      "  
-   echo "----------------------------"  
-   #
-   #
-   cd ${EXPDIR}/wpsprd
-   path_reg=${DATADIR}/${Domain}/${USERDATA}/${LABELI}
-   mkdir -p ${path_reg}
-   if [ ! -e ${path_reg}/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2  ]; then
-     echo "File ${path_reg}/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2 does not exist."
-     cdo sellonlatbox,260,350,-70,20 ${BNDDIR}/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2  ${path_reg}/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2
-     cp -urf ${path_reg}/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2 ${EXPDIR}/wpsprd/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2
-   else
-     echo "File ${path_reg}/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2 exists"
-     cp -urf ${path_reg}/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2 ${EXPDIR}/wpsprd/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2
-   fi
+nfiles=`ls -A ${EXPDIR}/wpsprd/e5.oper.f*.ll025sc.${LABELI}.grib  | wc -l`
+if [ ${nfiles} -le 20 ]; then
+  rm -f ${EXPDIR}/wpsprd/e5.oper.f*.ll025sc.*.grib
+  filelist="${BNDDIR}/e5.oper.f*.ll025sc.*.grib"
+  for files in $filelist
+  do
+   filename=`basename $files`
+   nhour=`echo ${filename:21:3} | awk '{print $1/1}' `
+   if [ ${nhour} -le 168 ] ; then    
+     echo "Processing $filename file..."
+     if [ ! -e ${path_reg}/${filename}  ]; then
+        echo "File ${path_reg}/${filename} does not exist."
+        CDI_INVENTORY_MODE=time  cdo sellonlatbox,260,350,-70,20 ${BNDDIR}/${filename}  ${path_reg}/${filename}
+        ln -sf  ${path_reg}/${filename} ${EXPDIR}/wpsprd/${filename}
+     else
+        echo "File ${path_reg}/${filename} exists"
+        ln -sf ${path_reg}/${filename} ${EXPDIR}/wpsprd/${filename}
+     fi
+   fi 
+  done
 else
-   cp -urf ${BNDDIR}/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2  ${EXPDIR}/wpsprd/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2
-fi
+  echo "not copy gfs data"
+fi 
 #
 #
 # scripts
 #
-JobName=gfs4monan
-#
-#
-#
-cat > ${EXPDIR}/degrib_ic_exe.sh << EOF0
+JobName=era5monan
+cd ${DIRMONAN_PRE_SCR}/${LABELI}/pre/runs/${EXP_NAME}
+
+cat > ${EXPDIR}/degrib_lbc_exe.sh << EOF0
 #!/bin/bash
 #SBATCH --job-name=${JobName}
-#SBATCH --nodes=1
-#SBATCH --partition=batch
-#SBATCH --tasks-per-node=1                      # ic for benchmark
-#SBATCH --time=00:30:00
-#SBATCH --output=${LOGDIR}/my_job_ungrib.o%j    # File name for standard output
-#SBATCH --error=${LOGDIR}/my_job_ungrib.e%j     # File name for standard error output
+#SBATCH --nodes=1             # Specify number of nodes
+#SBATCH --ntasks=1             
+#SBATCH --tasks-per-node=128     # Specify number of (MPI) tasks on each node
+#SBATCH --partition=batch 
+#SBATCH --time=${JobElapsedTime}
+#SBATCH --output=${LOGDIR}/my_job_ic.o%j    # File name for standard output
+#SBATCH --error=${LOGDIR}/my_job_ic.e%j     # File name for standard error output
 #
 ulimit -s unlimited
 ulimit -c unlimited
@@ -155,7 +169,7 @@ echo \$Start > Timing.degrib
 #
 cd ${EXPDIR}
  
-ln -sf ${BASEDIR}/${LABELI}/pre/runs/${EXP}/static/${AreaRegion}.${RES}.static.nc .
+ln -sf ${BASEDIR}/${LABELI}/pre/runs/${EXP}/static/${AreaRegion}.${EXP_RES}.static.nc .
 
 cd ${EXPDIR}/wpsprd
 
@@ -163,9 +177,9 @@ cd ${EXPDIR}/wpsprd
 
 echo "FORECAST "${LABELI}
 
-cp ${TBLDIRGRIB}/Vtable.GFS ${EXPDIR}/wpsprd/Vtable
+cp ${TBLDIRGRIB}/Vtable.ERA-interim.pl ${EXPDIR}/wpsprd/Vtable
 
-cp ${TBLDIRGRIB}/link_grib.csh ${EXPDIR}/wpsprd/link_grib.csh 
+cp ${TBLDIRGRIB}/link_grib.csh ${EXPDIR}/wpsprd/link_grib.csh
 chmod 777 ${EXPDIR}/wpsprd/link_grib.csh
 
 cp ${EXECPATH}/ungrib.exe ${EXPDIR}/wpsprd/ungrib.exe
@@ -177,15 +191,16 @@ ldd ungrib.exe
 cd $EXPDIR/wpsprd 
 
 if [ -e namelist.wps ]; then rm -f namelist.wps; fi
+
 #
 # Now surface and upper air atmospheric variables
 #
 rm -f GRIBFILE.* namelist.wps
 
-sed -e "s,#LABELI#,${start_date},g;s,#PREFIX#,GFS,g" \
-	${NMLDIR}/namelist.wps.TEMPLATE.${Domain} > ./namelist.wps
+sed -e "s,#LABELI#,${start_date},g;s,#LABELF#,${end_date},g;s,#PREFIX#,ERA5,g" \
+	 ${NMLDIR}/namelist.wps.LBC.${Domain} > ./namelist.wps
 
-${EXPDIR}/wpsprd/link_grib.csh gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2
+${EXPDIR}/wpsprd/link_grib.csh e5.oper.f*.ll025sc.*.grib
 
 mpirun -np 1 ./ungrib.exe
 
@@ -216,10 +231,11 @@ fi
 #
    mv ungrib.log      ${LOGDIR}/ungrib.${start_date}.log
    mv Timing.degrib   ${LOGDIR}
-   mv namelist.wps    ${EXPDIR}/scripts
+   mv namelist.wps degrib_lbc_exe.sh ${EXPDIR}/scripts
    rm -f ${EXPDIR}/wpsprd/link_grib.csh
    cd ..
-   ln -sf wpsprd/GFS\:${start_date:0:13} FILE3\:${start_date:0:13}
+   ln -sf wpsprd/ERA5\:* .
+
    find ${EXPDIR}/wpsprd -maxdepth 1 -type l -exec rm -f {} \;
 
 echo "End of degrib Job"
@@ -227,20 +243,10 @@ echo "End of degrib Job"
 exit 0
 EOF0
 
-chmod +x ${EXPDIR}/degrib_ic_exe.sh
+chmod +x ${EXPDIR}/degrib_lbc_exe.sh
 
+cd ${DIRMONAN_PRE_SCR}/${LABELI}/pre/runs/${EXP_NAME}
 
-echo -e  "${GREEN}==>${NC} Submiting degrib_ic_exe.sh...\n"
-mkdir -p ${HOME}/local/lib64
-cp -f /usr/lib64/libjasper.so* ${HOME}/local/lib64
-cp -f /usr/lib64/libjpeg.so* ${HOME}/local/lib64
-
-cd ${DIRMONAN_PRE_SCR}/${LABELI}/pre/runs/${EXP_NAME}//wpsprd/
-
-sbatch --wait ${EXPDIR}/degrib_ic_exe.sh
-
-export start_date=${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}:00:00
-
-files_ungrib=("LSM:${start_date:0:13}" "GEO:${start_date:0:13}" "FILE:${start_date:0:13}" "FILE2:${start_date:0:13}" "FILE3:${start_date:0:13}")
+sbatch --wait ${EXPDIR}/degrib_lbc_exe.sh
 
 }

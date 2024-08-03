@@ -89,7 +89,7 @@ tail -n $nn  ${pathin}/file.tmp0 > ${pathin}/file.tmp1
 head -n $bb  ${pathin}/file.tmp1 > ${pathin}/file.tmp2
 coma=","
 blanck=" "
-sed 's/,/ /g;s/longitude/ /g;s/=/ /g' ${pathin}/file.tmp2 > ${pathin}/longitude.tmp
+sed 's/,/ /g;s/;/ /g;s/longitude/ /g;s/=/ /g' ${pathin}/file.tmp2 > ${pathin}/longitude.tmp
 
 
 ncdump -v latitude ${pathin}/mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
@@ -100,7 +100,7 @@ tail -n $nn  ${pathin}/file.tmp0 > ${pathin}/file.tmp1
 head -n $bb  ${pathin}/file.tmp1 > ${pathin}/file.tmp2
 coma=","
 blanck=" "
-sed 's/,/ /g;s/latitude/ /g;s/=/ /g' ${pathin}/file.tmp2 > ${pathin}/latitude.tmp
+sed 's/,/ /g;s/;/ /g;s/latitude/ /g;s/=/ /g' ${pathin}/file.tmp2 > ${pathin}/latitude.tmp
 echo $nn $aa
 echo $nn $aa
 

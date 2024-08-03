@@ -1,5 +1,5 @@
 #!/bin/bash -x
-function Function_InitAtmos_LBC_GFS(){
+function Function_InitAtmos_LBC_ERA5(){
 #-----------------------------------------------------------------------------#
 #BOP
 #
@@ -70,10 +70,11 @@ EXPDIR=${RUNDIR}/${EXP}
 LOGDIR=${EXPDIR}/logs
 SCRDIR=${SUBMIT_HOME}/run/scripts
 EXECPATH=${SUBMIT_HOME}/pre/exec
-USERDATA=${EXP}
+USERDATA=`echo ${EXP} | tr '[:upper:]' '[:lower:]'`
 
 OPERDIR=/oper/dados/ioper/tempo/${EXP}
 BNDDIR=$OPERDIR/0p25/brutos/${LABELI:0:4}/${LABELI:4:2}/${LABELI:6:2}/${LABELI:8:2}
+BNDDIR=${BASEDIR}/pre//datain/${Domain}/${USERDATA}/${LABELI}
 
 echo $BNDDIR
 
@@ -112,7 +113,7 @@ fi
 #
 # scripts
 #
-JobName=gfs4monan
+JobName=era5monan
 #
 #
 #
@@ -176,7 +177,7 @@ echo  "FINISHED AT \`date\` "
 echo \$End   >> ${EXPDIR}/Timing.InitAtmos
 echo \$Start \$End | awk '{print \$2 - \$1" sec"}' >>  ${EXPDIR}/Timing.InitAtmos
 
-rm -f ${EXPDIR}/GFS\:* 
+rm -f ${EXPDIR}/ER5\:* 
 
 date
 exit 0

@@ -63,6 +63,7 @@ fi
 HSTMAQ=$(hostname)
 BASEDIR=${SUBMIT_HOME}
 RUNDIR=${BASEDIR}/${LABELI}/pre/runs
+DATADIR=${BASEDIR}/pre/datain/
 TBLDIRGRIB=${SUBMIT_HOME}/pre/Variable_Tables
 NMLDIR=${BASEDIR}/pre/namelist/${version_model}
 EXPDIR=${RUNDIR}/${EXP}
@@ -73,7 +74,6 @@ USERDATA=`echo ${EXP} | tr '[:upper:]' '[:lower:]'`
 
 OPERDIR=${BASEDIR}/pre/datain/${Domain}/${USERDATA}
 BNDDIR=$OPERDIR/${LABELI:0:10}
-BNDDIR2=/oper/dados/ioper/tempo/NCEP/input/${LABELI:0:4}/${LABELI:4:2}/${LABELI:6:2}/00/
 
 echo $BNDDIR
 
@@ -83,11 +83,6 @@ if [ ! -d ${BNDDIR} ]; then
    echo "$0 ${LABELI}"
    exit 1                     # close for running only the model
 fi
-
-#
-# selected ncores to submission job
-#
- Function_SetResolution ${RES} ${TypeGrid} 'set Function_SetClusterConfig '
 #
 # Criando diretorio dados Estaticos
 #
@@ -109,23 +104,34 @@ if [  -e ${EXPDIR} ]; then
    mkdir -p ${EXPDIR}/wpsprd
    mkdir -p ${EXPDIR}/scripts
 fi
-#
-#
-#ln -sf ${BASEDIR}/${LABELI}/pre/runs/${EXP}/static/*.nc .
-#
-cd ${EXPDIR}/wpsprd
 
-if [ ${Domain} = "global" ]; then
-ln -sf ${BNDDIR}/*.grb .
-ln -sf ${OPERDIR}/invariant/*.grb .
+if [ ${Domain} = "regional" ]; then
+   echo "----------------------------"  
+   echo "       REGIONAL DOMAIN      "  
+   echo "----------------------------"  
+   #
+   #
+   cd ${EXPDIR}/wpsprd
+   path_reg=${DATADIR}/${Domain}/${USERDATA}/${LABELI}
+   mkdir -p ${path_reg}
+   if [ ! -e ${path_reg}/e5.oper.f00.ll025sc.${LABELI}.grib  ]; then
+     echo "File ${path_reg}/e5.oper.f00.ll025sc.${LABELI}.grib does not exist."
+     cdo sellonlatbox,260,350,-70,20 ${BNDDIR}/e5.oper.f00.ll025sc.${LABELI}.grib  ${path_reg}/e5.oper.f00.ll025sc.${LABELI}.grib
+     cp -urf ${path_reg}/e5.oper.f00.ll025sc.${LABELI}.grib ${EXPDIR}/wpsprd/e5.oper.f00.ll025sc.${LABELI}.grib
+   else
+     echo "File ${path_reg}/e5.oper.f00.ll025sc.${LABELI}.grib exists"
+     cp -urf ${path_reg}/e5.oper.f00.ll025sc.${LABELI}.grib ${EXPDIR}/wpsprd/e5.oper.f00.ll025sc.${LABELI}.grib
+   fi
 else
-cdo sellonlatbox,260,350,-70,20 ${BNDDIR}/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2  ${EXPDIR}/wpsprd/gfs.t00z.pgrb2.0p25.f000.${LABELI}.grib2
+   cd ${EXPDIR}/wpsprd
+   ln -sf ${BNDDIR}/*.grb .
+   ln -sf ${OPERDIR}/invariant/*.grb .
 fi
 #
 #
 # scripts
 #
-JobName=gfs4monan
+JobName=era5monan
 #
 #
 #
@@ -173,6 +179,8 @@ ldd ungrib.exe
 cd $EXPDIR/wpsprd 
 
 if [ -e namelist.wps ]; then rm -f namelist.wps; fi
+
+if [ ${Domain} = "global" ]; then
 #
 # invariant variables [ONLY FOR BENCHMARK]
 #
@@ -214,12 +222,29 @@ sed -e "s,#LABELI#,${start_date},g;s,#PREFIX#,FILE,g" \
 
 ${EXPDIR}/wpsprd/link_grib.csh e5.oper.an.*.grb
 
+
 mpirun -np 1 ./ungrib.exe
 
 echo ${start_date:0:13}
 
 cat FILE\:${start_date:0:13} LSM\:1979-01-01_00 > FILE2:${start_date:0:13}
 cat FILE2\:${start_date:0:13} GEO\:1979-01-01_00 > FILE3:${start_date:0:13}
+
+else
+#
+# Now surface and upper air atmospheric variables
+#
+rm -f GRIBFILE.* namelist.wps
+
+sed -e "s,#LABELI#,${start_date},g;s,#PREFIX#,ERA5,g" \
+	${NMLDIR}/namelist.wps.TEMPLATE.${Domain} > ./namelist.wps
+
+${EXPDIR}/wpsprd/link_grib.csh e5.oper.f00.ll025sc.${LABELI}.grib
+
+
+mpirun -np 1 ./ungrib.exe
+
+fi
 
 rm -f GRIBFILE.*
 
@@ -249,7 +274,7 @@ fi
    mv namelist.wps degrib_ic_exe.sh ${EXPDIR}/scripts
    rm -f ${EXPDIR}/wpsprd/link_grib.csh
    cd ..
-   ln -sf wpsprd/FILE3\:${start_date:0:13} .
+   ln -sf wpsprd/ERA5\:${start_date:0:13} FILE3\:${start_date:0:13}
    find ${EXPDIR}/wpsprd -maxdepth 1 -type l -exec rm -f {} \;
 
 echo "End of degrib Job"
