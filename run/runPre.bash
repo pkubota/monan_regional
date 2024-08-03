@@ -130,6 +130,7 @@ echo -e  "${GREEN}==>${NC} Creating make_static.sh for submiting init_atmosphere
   Function_static ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${Domain} ${AreaRegion} ${TypeGrid}
 
 if [ ${EXP_NAME} = "ERA5" ]; then
+
 echo -e  "${GREEN}==>${NC} Creating submition scripts degrib, atmosphere_model...\n"
 
   Function_Degrib_IC_ERA5 ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
@@ -146,9 +147,9 @@ echo -e  "${GREEN}==>${NC} Submiting InitAtmos_lbc_exe.sh...\n"
 
   Function_InitAtmos_LBC_ERA5  ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
 
-echo -e  "${GREEN}==>${NC} Submiting CLM InitAtmosSST_exe.sh...\n"
+#echo -e  "${GREEN}==>${NC} Submiting CLM InitAtmosSST_exe.sh...\n"
 
-  Function_InitAtmos_SST_CLM    ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
+#  Function_InitAtmos_SST_CLM    ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
 
 else
 
@@ -178,7 +179,4 @@ fi
 
 #PK Function_InitAtmos_SST_GFS    ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
 
-#echo -e  "${GREEN}==>${NC} Submiting CLM InitAtmosSST_exe.sh...\n"
-
-#PK Function_InitAtmos_SST_CLM    ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
 
