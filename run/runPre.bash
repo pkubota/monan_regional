@@ -38,6 +38,8 @@
 #./runPre.bash    GFS   163842   2024042700  2024050100  regional  Sul  variable_resolution
 #
 #
+#./runPre.bash    ERA5  163842   2004032400  2004032412  regional  Sul  variable_resolution
+#
 # !REVISION HISTORY:
 # 30 sep 2022 - JPRF
 # 12 oct 2022 - GAM Group - MONAN on EGEON DELL cluster
@@ -86,11 +88,18 @@ source scripts/Function_PlotDomain.bash
 source scripts/Function_Static.bash
 source scripts/Function_Degrib_IC_ERA5.bash
 source scripts/Function_InitAtmos_IC_ERA5.bash
+
 source scripts/Function_Degrib_IC_GFS.bash
 source scripts/Function_InitAtmos_IC_GFS.bash
+
 source scripts/Function_Degrib_LBC_GFS.bash
 source scripts/Function_InitAtmos_LBC_GFS.bash
+
+source scripts/Function_Degrib_LBC_ERA5.bash
+source scripts/Function_InitAtmos_LBC_ERA5.bash
+
 source scripts/Function_Degrib_SST_GFS.bash
+
 source scripts/Function_InitAtmos_SST_GFS.bash
 source scripts/Function_InitAtmos_SST_CLM.bash
 #
@@ -129,10 +138,17 @@ echo -e  "${GREEN}==>${NC} Submiting InitAtmos_ic_exe.sh...\n"
 
   Function_InitAtmos_IC_ERA5 ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
 
+echo -e  "${GREEN}==>${NC} Submiting degriblbc_exe.sh...\n"
+
+  Function_Degrib_LBC_ERA5 ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
+
+echo -e  "${GREEN}==>${NC} Submiting InitAtmos_lbc_exe.sh...\n"
+
+  Function_InitAtmos_LBC_ERA5  ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
 
 echo -e  "${GREEN}==>${NC} Submiting CLM InitAtmosSST_exe.sh...\n"
 
-# Function_InitAtmos_SST_CLM    ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
+  Function_InitAtmos_SST_CLM    ${RES_KM} ${EXP_NAME} ${EXP_RES}  ${LABELI} ${LABELF} ${Domain} ${AreaRegion} ${TypeGrid}
 
 else
 
