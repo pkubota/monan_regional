@@ -158,7 +158,7 @@ DSET ^mpas.%y4-%m2-%d2_%h2.00.00.nc
 
 DTYPE netcdf
 
-Options zrev template
+Options template
 
 TITLE Ocean Surface Variables
 
@@ -170,10 +170,10 @@ XDEF ${nlon} levels
 
 YDEF ${nlat} levels
 
-ZDEF 27 levels 100000.0 97500.0  95000.0  92500.0  90000.0  87500.0  85000.0  82500.0  80000.0
-                77500.0 75000.0  70000.0  65000.0  60000.0  55000.0  50000.0  45000.0  40000.0
-	        35000.0 30000.0  25000.0  22500.0  20000.0  17500.0  15000.0  12500.0  10000.0
-		
+ZDEF 27 levels 1000.0 975.0  950.0  925.0  900.0  875.0  850.0  825.0  800.0
+                775.0 750.0  700.0  650.0  600.0  550.0  500.0  450.0  400.0
+                350.0 300.0  250.0  225.0  200.0  175.0  150.0  125.0  100.0
+
 tdef  10000 linear ${start_date} 1hr
 VARS 73
 mslp=>psnm                  0 t,y,x   Mean sea-level pressure [Pa]
