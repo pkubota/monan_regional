@@ -70,7 +70,6 @@ EXP_NAME=${2}
 EXP_RES=${3}
 LABELI=${4}; start_date=${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}:00:00
 start_check=${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00
-start_check2=${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}
 LABELF=${5};end_date=${LABELF:0:4}-${LABELF:4:2}-${LABELF:6:2}_${LABELF:8:2}:00:00
 
 Domain=${6}
@@ -81,7 +80,7 @@ if [ ${Domain} = "regional" ]; then
 echo "----------------------------"  
 echo "       REGIONAL DOMAIN      "  
 echo "----------------------------"  
-
+DOM=R
 export DIR_MESH=${SUBMIT_HOME}/pre/databcs/meshes/regional_domain/
 
 
@@ -103,6 +102,7 @@ else
 echo "----------------------------"  
 echo "        GLOBAL DOMAIN       "  
 echo "----------------------------"  
+DOM=G
 #Semi_major_axis=`cat ${DIR_MESH}/${AreaRegion}.ellipse.pts | grep Semi-major-axis: | awk '{printf "%.5f\n", (($2/1)/100000)+2}'`
 startlon=0.2496533   #`echo ${clon}  ${Semi_major_axis}| awk '{printf "%.5f\n", $1-(($2/2)+7)} '`   # -64.0
 endlon=359.7503   #`echo   ${clon}  ${Semi_major_axis}| awk '{printf "%.5f\n", $1+(($2/2)+7)} '`   # -39.0
@@ -181,12 +181,20 @@ labelF=\`echo \${filename} | awk '{print substr(\$1,6,22)}'\`
 cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/include_fields.diag      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/include_fields   >> ${LOG_FILE}
 cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/exclude_fields.diag      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/exclude_fields   >> ${LOG_FILE}
 
+labelC=\${labelF:0:4}\${labelF:5:2}\${labelF:8:2}\${labelF:11:2}
+postname='MONAN_DIAG_'${DOM}'_POS_'${EXP_NAME}'_'${LABELI}'_'\${labelC}'.mm.x'${frac}'.'${EXP_RES}'L55.nc'
+
 else
 labelF=\`echo \${filename} | awk '{print substr(\$1,9,22)}'\`
 cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/include_fields.history      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/include_fields   >> ${LOG_FILE}
 cp ${SUBMIT_HOME}/pos/namelist/${version_pos}/exclude_fields.history      ${SUBMIT_HOME}/${LABELI}/pos/runs/${EXP_NAME}/postprd/exclude_fields   >> ${LOG_FILE}
+
+labelC=\${labelF:0:4}\${labelF:5:2}\${labelF:7:2}\${labelF:9:2}
+postname='MONAN_HIST_'${DOM}'_POS_'${EXP_NAME}'_'${LABELI}'_'\${labelC}'.mm.x'${frac}'.'${EXP_RES}'L55.nc'
+
 fi
-postname='mpas.'\${labelF}
+#postname='mpas.'\${labelF}
+
 rm latlon.nc
 ./convert_mpas \${search_dir}/${AreaRegion}.${EXP_RES}.init.nc  \${dirmodel}/\${filename}
 mv latlon.nc  \${postname}

@@ -79,9 +79,11 @@ start_date=${LABELI:8:2}:00Z${LABELI:6:2}${CMON}${LABELI:0:4}
 if [ ${Domain} = "regional" ]; then
 echo "----------------------------"  
 echo "       REGIONAL DOMAIN      "  
-echo "----------------------------"  
+echo "----------------------------" 
+DOM=R 
+postname='MONAN_DIAG_'${DOM}'_POS_'${EXP_NAME}'_'${LABELI}'_'${LABELI}'.mm.x'${frac}'.'${EXP_RES}'L55.nc'
 
-ncdump -v longitude ${pathin}/mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
+ncdump -v longitude ${pathin}/${postname} > ${pathin}/file.tmp0
 aa=`cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}' | bc -l`
 nn=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -1" | bc -l`
 bb=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -2" | bc -l`
@@ -92,7 +94,7 @@ blanck=" "
 sed 's/,/ /g;s/;/ /g;s/longitude/ /g;s/=/ /g' ${pathin}/file.tmp2 > ${pathin}/longitude.tmp
 
 
-ncdump -v latitude ${pathin}/mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
+ncdump -v latitude ${pathin}/${postname} > ${pathin}/file.tmp0
 aa=`cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}' | bc -l`
 nn=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -1" | bc -l`
 bb=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -2" | bc -l`
@@ -123,7 +125,10 @@ else
 echo "----------------------------"  
 echo "        GLOBAL DOMAIN       "  
 echo "----------------------------"  
-ncdump -v longitude ${pathin}/mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
+DOM=G 
+postname='MONAN_DIAG_'${DOM}'_POS_'${EXP_NAME}'_'${LABELI}'_'${LABELI}'.mm.x'${frac}'.'${EXP_RES}'L55.nc'
+
+ncdump -v longitude ${pathin}/${postname} > ${pathin}/file.tmp0
 aa=`cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}' | bc -l`
 nn=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -1" | bc -l`
 bb=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -2" | bc -l`
@@ -134,7 +139,7 @@ blanck=" "
 sed 's/,/ /g;s/longitude/ /g;s/=/ /g' ${pathin}/file.tmp2 > ${pathin}/longitude.tmp
 
 
-ncdump -v latitude ${pathin}/mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc > ${pathin}/file.tmp0
+ncdump -v latitude ${pathin}/${postname} > ${pathin}/file.tmp0
 aa=`cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}' | bc -l`
 nn=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -1" | bc -l`
 bb=`a=$(cat ${pathin}/file.tmp0 | wc -l) && b=$(cat -n ${pathin}/file.tmp0 | grep data: | awk '{print $1}') && echo "$a - $b -2" | bc -l`
@@ -149,12 +154,12 @@ echo $nn $aa
 #   1grau -  110000
 #   y     - 1000000.
 #
-nlat=`ncdump -c mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc | head -n 6| grep latitude | awk '{print $3}'`
-nlon=`ncdump -c mpas.${LABELI:0:4}-${LABELI:4:2}-${LABELI:6:2}_${LABELI:8:2}.00.00.nc | head -n 6| grep longitude | awk '{print $3}'`
+nlat=`ncdump -c ${postname} | head -n 6| grep latitude | awk '{print $3}'`
+nlon=`ncdump -c ${postname} | head -n 6| grep longitude | awk '{print $3}'`
 
 fi
 cat<<EOF1>${pathin}/file.ctl
-DSET ^mpas.%y4-%m2-%d2_%h2.00.00.nc
+DSET ^MONAN_DIAG_${DOM}_POS_${EXP_NAME}_${LABELI}_%y4%m2%d2%h2.mm.x${frac}.${EXP_RES}L55.nc
 
 DTYPE netcdf
 
@@ -172,8 +177,8 @@ YDEF ${nlat} levels
 
 ZDEF 27 levels 1000.0 975.0  950.0  925.0  900.0  875.0  850.0  825.0  800.0
                 775.0 750.0  700.0  650.0  600.0  550.0  500.0  450.0  400.0
-                350.0 300.0  250.0  225.0  200.0  175.0  150.0  125.0  100.0
-
+	        350.0 300.0  250.0  225.0  200.0  175.0  150.0  125.0  100.0
+		
 tdef  10000 linear ${start_date} 1hr
 VARS 73
 mslp=>psnm                  0 t,y,x   Mean sea-level pressure [Pa]
