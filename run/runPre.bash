@@ -30,15 +30,25 @@
 #
 # For benchmark:
 #
-#./runPre.bash    GFS   2621442   2024042700  2024050100  regional  Sul  quasi_uniform
-#./runPre.bash    GFS   1024002   2024042700  2024050100  regional  Sul  quasi_uniform
+#  Extreme event in southern Brazil (flooding)
 #
-#
-#./runPre.bash    GFS   535554   2024042700  2024050100  regional  Sul  variable_resolution
 #./runPre.bash    GFS   163842   2024042700  2024050100  regional  Sul  variable_resolution
 #
+#    Hurricane Catarina
 #
-#./runPre.bash    ERA5  163842   2004032400  2004032412  regional  Sul  variable_resolution
+#./runPre.bash    ERA5  163842   2004032400  2004032800  regional  Sul       variable_resolution
+#
+#   meteorological instability line LI-NORDESTE
+#
+#./runPre.bash    ERA5  163842   2010101600  2010102000  regional  Nordeste  variable_resolution
+#
+#   meteorological instability line LI-NORTE
+#
+#./runPre.bash    ERA5  163842   2013043000  2013050400  regional  Norte     variable_resolution
+#
+#   meteorological easterly wave  NORDESTE
+#
+#./runPre.bash    ERA5  163842   2019052500  2019052900  regional  Nordeste  variable_resolution
 #
 # !REVISION HISTORY:
 # 30 sep 2022 - JPRF

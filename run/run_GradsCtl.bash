@@ -28,16 +28,28 @@
 #           o AreaRegion : PortoAlegre, Belem, global
 #           o TypeGrid   : quasi_uniform or variable_resolution
 #
-#
 # For benchmark:
 #
+#  Extreme event in southern Brazil (flooding)
 #
-# ./run_GradsCtl.bash    GFS   2621442   2024042700  2024050100  regional  Sul  quasi_uniform
-# ./run_GradsCtl.bash    GFS   1024002   2024042700  2024050100  regional  Sul  quasi_uniform
+#./run_GradsCtl.bash    GFS   163842   2024042700  2024050100  regional  Sul      variable_resolution
 #
+#    Hurricane Catarina
 #
-# ./run_GradsCtl.bash    GFS    535554   2024042700  2024050100  regional  Sul  variable_resolution
-# ./run_GradsCtl.bash    GFS    163842   2024042700  2024050100  regional  Sul  variable_resolution
+#./run_GradsCtl.bash    ERA5  163842   2004032400  2004032800  regional  Sul       variable_resolution
+#
+#   meteorological instability line LI-NORDESTE
+#
+#./run_GradsCtl.bash    ERA5  163842   2010101600  2010102000  regional  Nordeste  variable_resolution
+#
+#   meteorological instability line LI-NORTE
+#
+#./run_GradsCtl.bash    ERA5  163842   2013043000  2013050400  regional  Norte     variable_resolution
+#
+#   meteorological easterly wave  NORDESTE
+#
+#./run_GradsCtl.bash    ERA5  163842   2019052500  2019052900  regional  Nordeste  variable_resolution
+#
 #
 # !REVISION HISTORY:
 #
