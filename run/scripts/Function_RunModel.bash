@@ -173,7 +173,7 @@ cat > ${EXPDIR}/monan_exe.sh <<EOF0
 #SBATCH --nodes=${nodes_model}
 #SBATCH --ntasks=${cores_model}
 #SBATCH --tasks-per-node=128
-#SBATCH --partition=PESQ2
+#SBATCH --partition=batch
 #SBATCH --job-name=${JobName}
 #SBATCH --time=12:00:00         
 #SBATCH --output=${LOGDIR}/my_job_monan.o%j   # File name for standard output
