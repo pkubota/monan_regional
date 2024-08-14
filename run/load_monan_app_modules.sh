@@ -8,7 +8,7 @@ module load netcdf-fortran
 module load mpich-4.0.2-gcc-9.4.0-gpof2pv
 module load hwloc
 module load cdo-2.0.4-gcc-9.4.0-bjulvnd
-module load opengrads-2.2.1
+module load grads/2.0.a9
 module load anaconda3-2022.05-gcc-11.2.0-q74p53i 
 module load imagemagick-7.0.8-7-gcc-11.2.0-46pk2go
 module list
